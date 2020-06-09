@@ -2,35 +2,26 @@
 Input: a List of integers as well as an integer `k` representing the size of the sliding window
 Returns: a List of integers
 '''
-def sliding_window_max(arr, k):
+
+def sliding_window_max(nums, k):
     # Your code here
-    n = len(arr)
-    
-    max_upto=[0 for i in range(n)] 
-  
-    # Update max_upto array similar to 
-    # finding next greater element 
-    s=[] 
-    s.append(0) 
-  
-    for i in range(1,n): 
-        while (len(s) > 0 and arr[s[-1]] < arr[i]): 
-            max_upto[s[-1]] = i - 1
-            del s[-1] 
-          
-        s.append(i) 
-  
-    while (len(s) > 0): 
-        max_upto[s[-1]] = n - 1
-        del s[-1] 
-  
-    j = 0
-    for i in range(n - k + 1): 
-  
-        # j < i is to check whether the 
-        # jth element is outside the window 
-        while (j < i or max_upto[j] < i + k - 1): 
-            j += 1
+        if nums == []:
+            return []
+        ans,tmp = [], []
+        for i in range(0, k):
+            while tmp != [] and nums[i] > nums[tmp[-1]]:
+                tmp.pop()
+            tmp.append(i)
+        for i in range(k, len(nums)):
+            ans.append(nums[tmp[0]])
+            while tmp != [] and nums[i] > nums[tmp[-1]]:
+                tmp.pop()
+            tmp.append(i)
+            while tmp != [] and tmp[0] <= i-k:
+                tmp.pop(0)
+        ans.append(nums[tmp[0]])
+        return ans
+       
 if __name__ == '__main__':
     # Use the main function here to test out your implementation 
     arr = [1, 3, -1, -3, 5, 3, 6, 7]
