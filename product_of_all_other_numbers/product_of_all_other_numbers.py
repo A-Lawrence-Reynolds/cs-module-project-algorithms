@@ -2,10 +2,24 @@
 Input: a List of integers
 Returns: a List of integers
 '''
+
+
 def product_of_all_other_numbers(arr):
     # Your code here
-
-    pass
+    right_multiply = [0] * len(arr)
+    right_multiply[-1] = arr[-1]
+    for i in range(1, len(arr)):
+        right_multiply[len(arr)-i-1] = right_multiply[len(arr)-i] * arr[len(arr)-i-1]
+    output = [0]*len(arr)
+    prefix = 1
+    current_index = 0
+    while current_index < len(output)-1:
+      output[current_index] = prefix * right_multiply[current_index+1]
+      prefix *= arr[current_index]
+      current_index += 1
+    output[-1] = prefix
+    return output
+    
 
 
 if __name__ == '__main__':

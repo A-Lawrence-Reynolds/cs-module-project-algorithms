@@ -1,11 +1,18 @@
 '''
-Input: a List of integers where every int except one shows up twice
+Input: c
 Returns: an integer
 '''
+
+
 def single_number(arr):
     # Your code here
-
-    pass
+    no_duplicate_list = []
+    for i in arr:
+        if i not in no_duplicate_list:
+            no_duplicate_list.append(i)
+        else:
+            no_duplicate_list.remove(i)
+    return no_duplicate_list.pop()
 
 
 if __name__ == '__main__':
